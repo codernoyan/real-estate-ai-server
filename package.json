@@ -1,0 +1,19 @@
+{
+  "name": "real-estate-ai-server",
+  "version": "1.0.0",
+  "description": "Real Estate AI property valuation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "github": "https://github.com/sohanemon/real-estate-ai-server",
+  "author": "sohanemon",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.0",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
