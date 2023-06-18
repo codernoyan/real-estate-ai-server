@@ -6,4 +6,6 @@ router.post('/instruction', editInstructions);
 
 router.post('/generateText', generateText);
 
+router.post('/generateImage', generateImage);
+
 module.exports = router;
