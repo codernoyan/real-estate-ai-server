@@ -57,5 +57,49 @@ router.get('/getProperty/:id', async (req, res) => {
       error: err.message,
     })
   }
-})
+});
+
+// delete a property
+router.get('/deleteProperty/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const result = await propertiesCollection.deleteOne(query);
+    // send response
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      error: err.message,
+    });
+  }
+});
+
+// update a property
+router.put('/updateProperty/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const updatedPropertyInfo = req.body;
+    const options = { upsert: true };
+    const updatedProperty = {
+      $set: updatedPropertyInfo
+    };
+    const result = await propertiesCollection.updateOne(query, updatedProperty, options);
+    // send response
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      error: err.message,
+    });
+  }
+});
+
 module.exports = router;
