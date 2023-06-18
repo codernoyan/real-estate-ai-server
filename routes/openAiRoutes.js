@@ -4,4 +4,6 @@ const router = express.Router();
 
 router.post('/instruction', editInstructions);
 
+router.post('/generateText', generateText);
+
 module.exports = router;
