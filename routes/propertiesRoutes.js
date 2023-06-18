@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const router = express.Router();
 
 // get all properties
-router.get('/getProperties', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const query = {};
     const cursor = propertiesCollection.find(query);
@@ -23,7 +23,7 @@ router.get('/getProperties', async (req, res) => {
 });
 
 // post a property
-router.post('/addProperty', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const propertyData = req.body;
     const result = await propertiesCollection.insertOne(propertyData);
@@ -41,7 +41,7 @@ router.post('/addProperty', async (req, res) => {
 });
 
 // get a property
-router.get('/getProperty/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const query = { _id: new ObjectId(id) };
@@ -60,7 +60,7 @@ router.get('/getProperty/:id', async (req, res) => {
 });
 
 // delete a property
-router.get('/deleteProperty/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const query = { _id: new ObjectId(id) };
@@ -79,7 +79,7 @@ router.get('/deleteProperty/:id', async (req, res) => {
 });
 
 // update a property
-router.put('/updateProperty/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const query = { _id: new ObjectId(id) };

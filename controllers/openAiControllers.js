@@ -32,7 +32,7 @@ const generateText = async (req, res) => {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt,
-      max_tokens: 200,
+      max_tokens: 500,
       temperature: 0,
     });
     const createdText = response.data.choices[0].text;
@@ -44,7 +44,7 @@ const generateText = async (req, res) => {
     res.status(404).json({
       success: false,
       error: err.message,
-    })
+    });
   }
 };
 
