@@ -1,15 +1,25 @@
-require('dotenv').config();
-const lol = require('./routes/lol');
 const express = require('express');
-const cors = require('cors');
 const app = express();
+const cors = require('cors');
+require('dotenv').config();
+const morgan = require('morgan');
+const { dbConnect } = require('./mongodb/mongodb.config');
+const openAiRoutes = require('./routes/openAiRoutes');
 const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
 app.use(express.json());
-app.use('/', lol);
+app.use(morgan('dev'));
 
-// Please delete this line Because this line is demo data
+// run mongodb
+dbConnect();
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.use('/openai', openAiRoutes);
+
+// default get route
+app.get('/', (req, res) => {
+  res.send('Real Estate server is running');
+});
+
+app.listen(port, () => console.log(`Server is listening on http://localhost:${port}`));
