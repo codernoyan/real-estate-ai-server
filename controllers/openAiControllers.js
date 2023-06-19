@@ -32,7 +32,7 @@ const generateText = async (req, res) => {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt,
-      max_tokens: 500,
+      max_tokens: 256,
       temperature: 0,
     });
     const createdText = response.data.choices[0].text;
@@ -78,7 +78,7 @@ const generateTextAndImage = async (req, res) => {
     // text response
     const textResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt,
+      prompt: `${prompt}. create a real estate property valuation and set correct emojis regarding the output`,
       max_tokens: 500,
       temperature: 0,
     });
@@ -92,8 +92,8 @@ const generateTextAndImage = async (req, res) => {
     const imageUrl = imageResponse.data.data[0].url;
     res.status(200).json({
       success: true,
-      imageUrl,
       createdText,
+      imageUrl,
     });
   } catch (err) {
     res.status(404).json({
@@ -101,6 +101,6 @@ const generateTextAndImage = async (req, res) => {
       error: err.message,
     });
   }
-}
+};
 
 module.exports = { editInstructions, generateText, generateImage, generateTextAndImage };

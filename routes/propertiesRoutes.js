@@ -22,6 +22,25 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get all products based on user email
+router.get('/user', async (req, res) => {
+  try {
+    const userEmail = req.query.email;
+    const query = { userEmail };
+    const cursor = await propertiesCollection.find(query);
+    const result = cursor.toArray();
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      error: err.message,
+    });
+  }
+})
+
 // post a property
 router.post('/', async (req, res) => {
   try {
