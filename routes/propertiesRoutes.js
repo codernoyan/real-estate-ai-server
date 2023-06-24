@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const cursor = propertiesCollection.find(query);
     const result = await cursor.toArray();
     // send response
-    res.status(200).status({
+    res.status(200).json({
       success: true,
       data: result,
     });
