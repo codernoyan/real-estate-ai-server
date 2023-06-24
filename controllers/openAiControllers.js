@@ -32,7 +32,7 @@ const generateText = async (req, res) => {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt,
-      max_tokens: 200,
+      max_tokens: 256,
       temperature: 0,
     });
     const createdText = response.data.choices[0].text;
@@ -44,7 +44,7 @@ const generateText = async (req, res) => {
     res.status(404).json({
       success: false,
       error: err.message,
-    })
+    });
   }
 };
 
@@ -68,6 +68,39 @@ const generateImage = async (req, res) => {
       error: err.message,
     })
   }
-}
+};
 
-module.exports = { editInstructions, generateText, generateImage };
+// create text and image with one prompt
+const generateTextAndImage = async (req, res) => {
+  const { prompt, size } = req.body;
+  let imageSize = size === 'small' ? '256x256' : size === 'medium' ? '512x512' : '1024x1024';
+  try {
+    // text response
+    const textResponse = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `${prompt}. create a real estate property valuation and set correct emojis regarding the output`,
+      max_tokens: 500,
+      temperature: 0,
+    });
+    const createdText = textResponse.data.choices[0].text;
+    // image response
+    const imageResponse = await openai.createImage({
+      prompt,
+      n: 1,
+      size: imageSize,
+    });
+    const imageUrl = imageResponse.data.data[0].url;
+    res.status(200).json({
+      success: true,
+      createdText,
+      imageUrl,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      error: err.message,
+    });
+  }
+};
+
+module.exports = { editInstructions, generateText, generateImage, generateTextAndImage };

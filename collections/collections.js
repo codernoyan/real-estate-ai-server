@@ -1,7 +1,7 @@
 const { client } = require("../mongodb/mongodb.config");
 
-const listCollections = client.db('realEstateAI').collection('lists');
+const propertiesCollection = client.db('realEstateAI').collection('properties');
 
 module.exports = {
-  listCollections
+  propertiesCollection
 };

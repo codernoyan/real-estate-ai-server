@@ -5,6 +5,7 @@ require('dotenv').config();
 const morgan = require('morgan');
 const { dbConnect } = require('./mongodb/mongodb.config');
 const openAiRoutes = require('./routes/openAiRoutes');
+const propertiesRoutes = require('./routes/propertiesRoutes');
 const port = process.env.PORT || 5000;
 
 // middleware
@@ -15,7 +16,11 @@ app.use(morgan('dev'));
 // run mongodb
 dbConnect();
 
+// open ai api routes
 app.use('/openai', openAiRoutes);
+
+// properties routes
+app.use('/properties', propertiesRoutes);
 
 // default get route
 app.get('/', (req, res) => {
