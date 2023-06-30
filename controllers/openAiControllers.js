@@ -1,3 +1,4 @@
+const { createReadStream, existsSync } = require('fs');
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
@@ -78,7 +79,7 @@ const generateTextAndImage = async (req, res) => {
     // text response
     const textResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `${prompt}. create a real estate property valuation and set correct emojis regarding the output`,
+      prompt: `${prompt}.\nAssume that you are the realtor or agent of the real estate property business.Now give me an actual output of real estate property valuation based on the above data.\nGive me in full details./nSet emojis for each topic`,
       max_tokens: 500,
       temperature: 0,
     });
@@ -103,4 +104,39 @@ const generateTextAndImage = async (req, res) => {
   }
 };
 
-module.exports = { editInstructions, generateText, generateImage, generateTextAndImage };
+const imageEdit = async (req, res) => {
+  const src = "poster.png";
+  const mask = "mask.png";
+  try {
+    const srcStream = createReadStream(src);
+    const maskStream = createReadStream(mask);
+
+    const response = await openai.createImageEdit(
+      srcStream,
+      maskStream,
+      "A social media poster with amount $540K",
+      1,
+      "1024x1024"
+    );
+    const imageUrl = response.data.data[0].url;
+    console.log(imageUrl);
+    res.status(200).json({
+      success: true,
+      data: imageUrl,
+    });
+
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      error: err.message,
+    });
+  }
+};
+
+module.exports = {
+  editInstructions,
+  generateText,
+  generateImage,
+  generateTextAndImage,
+  imageEdit,
+};
