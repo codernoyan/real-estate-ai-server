@@ -79,11 +79,20 @@ const generateTextAndImage = async (req, res) => {
     // text response
     const textResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `${prompt}.\nAssume that you are the realtor or agent of the real estate property business.Now give me an actual output of real estate property valuation based on the above data.\nGive me in full details./nSet emojis for each topic`,
+      prompt: `${prompt}.\nAssume that you are the realtor or agent of the real estate property business.Now give me an actual output of real estate property valuation based on the above data.\nGive me full details./nSet emojis for each topic`,
       max_tokens: 500,
       temperature: 0,
     });
     const createdText = textResponse.data.choices[0].text;
+
+    // valuation response
+    const valuationCostResponse = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `${prompt}.\nCreate a property valuation cost only money in Number/nMust be in number format. with a relevant emoji`,
+      max_tokens: 250,
+      temperature: 0,
+    });
+    const valuationCost = valuationCostResponse.data.choices[0].text;
     // image response
     const imageResponse = await openai.createImage({
       prompt,
@@ -93,38 +102,10 @@ const generateTextAndImage = async (req, res) => {
     const imageUrl = imageResponse.data.data[0].url;
     res.status(200).json({
       success: true,
+      valuationCost,
       createdText,
       imageUrl,
     });
-  } catch (err) {
-    res.status(404).json({
-      success: false,
-      error: err.message,
-    });
-  }
-};
-
-const imageEdit = async (req, res) => {
-  const src = "poster.png";
-  const mask = "mask.png";
-  try {
-    const srcStream = createReadStream(src);
-    const maskStream = createReadStream(mask);
-
-    const response = await openai.createImageEdit(
-      srcStream,
-      maskStream,
-      "A social media poster with amount $540K",
-      1,
-      "1024x1024"
-    );
-    const imageUrl = response.data.data[0].url;
-    console.log(imageUrl);
-    res.status(200).json({
-      success: true,
-      data: imageUrl,
-    });
-
   } catch (err) {
     res.status(404).json({
       success: false,
