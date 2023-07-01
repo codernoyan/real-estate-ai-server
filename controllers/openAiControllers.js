@@ -119,5 +119,4 @@ module.exports = {
   generateText,
   generateImage,
   generateTextAndImage,
-  imageEdit,
 };
