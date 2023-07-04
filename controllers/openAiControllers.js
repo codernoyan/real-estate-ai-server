@@ -5,6 +5,10 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+const axios = require('axios');
+const sharp = require('sharp');
+const fs = require('fs');
+const imgbbUploader = require("imgbb-uploader");
 
 const editInstructions = async (req, res) => {
   try {
@@ -99,11 +103,36 @@ const generateTextAndImage = async (req, res) => {
       size: imageSize,
     });
     const imageUrl = imageResponse.data.data[0].url;
+
+    // testing code
+    const pngImageUrl = imageUrl;
+    const outputFilePath = 'estate.jpg';
+    axios({
+      url: pngImageUrl,
+      responseType: 'arraybuffer'
+    })
+      .then(response => {
+        // Convert the PNG image buffer to a JPEG image buffer
+        return sharp(response.data)
+          .jpeg()
+          .toBuffer();
+      })
+      .then(jpegBuffer => {
+        // Save the JPEG image buffer to a file
+        fs.writeFileSync(outputFilePath, jpegBuffer);
+        console.log('PNG image converted to JPEG and saved successfully!');
+      })
+      .catch(error => {
+        console.error('An error occurred:', error);
+      });
+    // testing code
+    const response = await imgbbUploader(process.env.imageAPIKey, outputFilePath);
+
     return res.status(200).json({
       success: true,
       valuationCost,
       createdText,
-      imageUrl,
+      imageUrl: response.display_url,
     });
   } catch (err) {
     return res.status(404).json({
