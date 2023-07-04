@@ -15,12 +15,12 @@ const editInstructions = async (req, res) => {
       instruction: instruction,
     });
     console.log(response);
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: response.data.choices[0].text,
     })
   } catch (err) {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       error: err.message,
     })
@@ -37,12 +37,12 @@ const generateText = async (req, res) => {
       temperature: 0,
     });
     const createdText = response.data.choices[0].text;
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: createdText,
     })
   } catch (err) {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       error: err.message,
     });
@@ -59,12 +59,12 @@ const generateImage = async (req, res) => {
       size: imageSize,
     });
     const imageUrl = response.data.data[0].url;
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       imageUrl,
     });
   } catch (err) {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       error: err.message,
     })
@@ -99,14 +99,14 @@ const generateTextAndImage = async (req, res) => {
       size: imageSize,
     });
     const imageUrl = imageResponse.data.data[0].url;
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       valuationCost,
       createdText,
       imageUrl,
     });
   } catch (err) {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       error: err.message,
     });

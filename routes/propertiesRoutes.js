@@ -39,7 +39,7 @@ router.get('/user', async (req, res) => {
       error: err.message,
     });
   }
-})
+});
 
 // post a property
 router.post('/', async (req, res) => {
