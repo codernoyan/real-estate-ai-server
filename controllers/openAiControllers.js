@@ -84,7 +84,6 @@ const generateTextAndImage = async (req, res) => {
       temperature: 0,
     });
     const createdText = textResponse.data.choices[0].text;
-
     // valuation response
     const valuationCostResponse = await openai.createCompletion({
       model: "text-davinci-003",
