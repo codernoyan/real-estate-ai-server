@@ -104,7 +104,7 @@ const generateTextAndImage = async (req, res) => {
     });
     const imageUrl = imageResponse.data.data[0].url;
 
-    // testing code
+    // png image to jpeg
     const pngImageUrl = imageUrl;
     const outputFilePath = 'estate.jpg';
     axios({
@@ -125,7 +125,7 @@ const generateTextAndImage = async (req, res) => {
       .catch(error => {
         console.error('An error occurred:', error);
       });
-    // testing code
+    // save image to imgbb
     const response = await imgbbUploader(process.env.imageAPIKey, outputFilePath);
 
     return res.status(200).json({
