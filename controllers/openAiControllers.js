@@ -127,7 +127,7 @@ const generateTextAndImage = async (req, res) => {
       });
     // save image to imgbb
     const response = await imgbbUploader(process.env.imageAPIKey, outputFilePath);
-
+    // return the response
     return res.status(200).json({
       success: true,
       valuationCost,
