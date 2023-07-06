@@ -156,7 +156,7 @@ const generateSocialMediaPoster = async (req, res) => {
     // final code response
     const finalResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `I want to make a intragram post using JSX. Page text must be white in color. There will be a heading <h1>THE BEAUTIFUL HOME IS NOW AVAILABLE!</h1> it will be bold in weight. I will give you information about the post. Include the information in the post.Here are the information: Key Features: \n- ${listedFeaturesResponse} \nImage: ${image}\nUse this image as background image with no-repeat.Overlay a slightest dark color over the background. add 1rem padding in inner div.\nFor key features use <ul><li></li></ul>\nText must be left\nParagraph will be small in font size/nUse 1.5rem padding in full page.\nUse Tailwind CSS for styling.Write some extra text for advertise`,
+      prompt: `I want to make a instagram post using JSX. Page text must be white in color. There will be a heading <h1>THE BEAUTIFUL HOME IS NOW AVAILABLE!</h1> it will be bold in weight. I will give you information about the post. Include the information in the post.Here are the information: Key Features: \n- ${listedFeaturesResponse} \nImage: ${image}\nUse this image as background image with no-repeat.Overlay a slightest dark color over the background and add 1rem padding in inner div.\nFor key features use <ul><li></li></ul>\nText must be left\nParagraph will be small in font size/nUse 1.5rem padding in full page.\nUse Tailwind CSS for styling.Write some extra text for advertise`,
       max_tokens: 1000,
       temperature: 0,
     });
@@ -180,4 +180,3 @@ module.exports = {
   generateTextAndImage,
   generateSocialMediaPoster
 };
-
