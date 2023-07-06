@@ -156,14 +156,22 @@ const generateSocialMediaPoster = async (req, res) => {
     // final code response
     const finalResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `I want to make a instagram post using JSX. Page text must be white in color. There will be a heading <h1>THE BEAUTIFUL HOME IS NOW AVAILABLE!</h1> it will be bold in weight. I will give you information about the post. Include the information in the post.Here are the information: Key Features: \n- ${listedFeaturesResponse} \nImage: ${image}\nUse this image as background image with no-repeat.Overlay a slightest dark color over the background and add 1rem padding in inner div.\nFor key features use <ul><li></li></ul>\nText must be left\nParagraph will be small in font size/nUse 1.5rem padding in full page.\nUse Tailwind CSS for styling.Write some extra text for advertise`,
+      prompt: `I want to make a instagram post using JSX. Page text must be white in color. There will be a heading <h1>THE BEAUTIFUL HOME IS NOW AVAILABLE!</h1> it will be bold in weight. I will give you information about the post. Include the information in the post.Here are the information: Key Features: \n- ${listedFeaturesResponse}\nImage: ${image}\nUse this image as background image with no-repeat.Overlay a slightest dark color over the background and add 1rem padding in inner div.\nFor key features use <ul><li></li></ul>\nText must be left\nParagraph will be small in font size/nUse 1.5rem padding in full page.\nUse Tailwind CSS for styling.Write some extra text for advertise`,
       max_tokens: 1000,
       temperature: 0,
     });
     const finalPosterResponse = finalResponse.data.choices[0].text;
+    // check if a jsx response has errors
+    const checkJsxErrors = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `${finalPosterResponse}\ncheck this JSX code has any error.\nIf has any error either fix it or let it be as it is and give me only the code no additional text. Thank you.`,
+      max_tokens: 1000,
+      temperature: 0,
+    });
+    const fixedJsxErrors = checkJsxErrors.data.choices[0].text;
     return res.status(200).json({
       success: true,
-      data: finalPosterResponse,
+      data: fixedJsxErrors,
     })
   } catch (err) {
     return res.status(404).json({
