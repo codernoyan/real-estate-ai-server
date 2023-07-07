@@ -1,4 +1,3 @@
-const { createReadStream, existsSync } = require('fs');
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
@@ -9,27 +8,6 @@ const axios = require('axios');
 const sharp = require('sharp');
 const fs = require('fs');
 const imgbbUploader = require("imgbb-uploader");
-
-const editInstructions = async (req, res) => {
-  try {
-    const { input, instruction } = req.body;
-    const response = await openai.createEdit({
-      model: "text-davinci-edit-001",
-      input: input,
-      instruction: instruction,
-    });
-    console.log(response);
-    return res.status(200).json({
-      success: true,
-      message: response.data.choices[0].text,
-    })
-  } catch (err) {
-    return res.status(404).json({
-      success: false,
-      error: err.message,
-    })
-  }
-};
 
 const generateText = async (req, res) => {
   const { prompt } = req.body;
@@ -91,14 +69,14 @@ const generateTextAndImage = async (req, res) => {
     // valuation response
     const valuationCostResponse = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `${prompt}.\nCreate a property valuation cost only money in Number/nMust be in number format. with a relevant emoji`,
+      prompt: `${createdText}.\nGive me the property valuation cost only money in Number/nMust be in number format. with a relevant emoji`,
       max_tokens: 250,
       temperature: 0,
     });
     const valuationCost = valuationCostResponse.data.choices[0].text;
     // image response
     const imageResponse = await openai.createImage({
-      prompt,
+      prompt: "Generate a realistic image of a modern real estate property building with a sleek design. The building should have multiple floors, large windows, and architectural elements that make it visually appealing. The surroundings should include well-maintained landscaping with trees, bushes, and a paved walkway leading to the entrance. The image should have a clear and sunny sky as the background",
       n: 1,
       size: imageSize,
     });
@@ -142,6 +120,7 @@ const generateTextAndImage = async (req, res) => {
   }
 };
 
+// generate social media poster
 const generateSocialMediaPoster = async (req, res) => {
   const { features, image } = req.body;
   try {
@@ -153,7 +132,7 @@ const generateSocialMediaPoster = async (req, res) => {
       temperature: 0,
     })
     const listedFeaturesResponse = listedFeatures.data.choices[0].text;
-    // final code response
+    // generate final code response
     const finalResponse = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `I want to make a instagram post using JSX for react app. Page text must be white in color. There will be a heading <h1>THE BEAUTIFUL HOME IS NOW AVAILABLE!</h1> it will be bold in weight. I will give you information about the post. Include the information in the post.Here are the information: Key Features: \n- ${listedFeaturesResponse}\nImage: ${image}\nUse this image as background image with no-repeat.Overlay a slightest dark color over the background and add 1rem padding in inner div.\nFor key features use <ul><li></li></ul>\nText must be left\nParagraph will be small in font size/nUse 1.5rem padding in full page.\nUse Tailwind CSS for styling.Write some extra text for advertise\nDo not use inline styles. Make sure that for style use Tailwind CSS. For background image make sure that you can use tailwind css arbitrary value like bg-[url(imageLink)].`,
@@ -182,7 +161,6 @@ const generateSocialMediaPoster = async (req, res) => {
 };
 
 module.exports = {
-  editInstructions,
   generateText,
   generateImage,
   generateTextAndImage,

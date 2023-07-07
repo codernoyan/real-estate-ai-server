@@ -1,9 +1,6 @@
 const express = require('express');
-const { editInstructions, generateText, generateImage, generateTextAndImage, generateSocialMediaPoster } = require('../controllers/openAiControllers');
+const { generateText, generateImage, generateTextAndImage, generateSocialMediaPoster } = require('../controllers/openAiControllers');
 const router = express.Router();
-
-// for openai test
-router.post('/instruction', editInstructions);
 
 // for openai test
 router.post('/generateText', generateText);
