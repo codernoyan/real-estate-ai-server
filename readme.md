@@ -64,6 +64,10 @@ The Real Estate Server exposes the following API routes:
 
 - `POST /openai/generateSocialMediaPoster`: Generate a social media poster for a specific property by sending the property ID in the request body. Returns the generated social media poster.
 
+- `POST /openai/generateText`: Generate property description texts by sending property details in the request body. Returns a set of generated texts suitable for property listings, marketing materials, or other purposes.
+
+- `POST /openai/generateImage`: Generate property images by sending property details in the request body. Returns an enhanced image representation of the property, ready for use in marketing materials or online listings.
+
 - `POST /properties`: Post generated property valuation information to the database by sending property data and valuation details in the request body. Stores the valuation information in the database for future reference or analysis.
 
 - `GET /properties`: Get all properties. Returns a list of all properties stored in the database. This route is useful for retrieving a comprehensive list of properties available in the system.
@@ -76,3 +80,10 @@ The Real Estate Server exposes the following API routes:
 
 - `DELETE /properties/:id`: Delete a specific property by ID. Requires the property ID as a parameter. Use this route to remove a property from the database.
 
+### Thank you for choosing Real Estate Genius Server! 🏡✨
+
+We appreciate your support and trust in our powerful backend application. We are dedicated to empowering your real estate endeavors with features such as property valuation, image processing, social media promotion, and report generation.
+
+Feel free to explore the Real Estate Genius Server API and revolutionize your property management workflows.
+
+For any inquiries or assistance, please contact us at airealestate90@gmail.com.
