@@ -64,14 +64,15 @@ The Real Estate Server exposes the following API routes:
 
 - `POST /openai/generateSocialMediaPoster`: Generate a social media poster for a specific property by sending the property ID in the request body. Returns the generated social media poster.
 
-- `POST /api/properties`: Post generated property valuation information to the database by sending property data and valuation details in the request body. Stores the valuation information in the database for future reference or analysis.
+- `POST /properties`: Post generated property valuation information to the database by sending property data and valuation details in the request body. Stores the valuation information in the database for future reference or analysis.
 
-- `GET /api/properties`: Get all properties. Returns a list of all properties stored in the database. This route is useful for retrieving a comprehensive list of properties available in the system.
+- `GET /properties`: Get all properties. Returns a list of all properties stored in the database. This route is useful for retrieving a comprehensive list of properties available in the system.
 
-- `GET /api/properties/:id`: Get a specific property by ID. Requires the property ID as a parameter. This route allows you to retrieve detailed information about a particular property based on its unique ID.
+- `GET /properties/:id`: Get a specific property by ID. Requires the property ID as a parameter. This route allows you to retrieve detailed information about a particular property based on its unique ID.
 
-- `GET /api/properties/user?email=:email`: Get properties by user email. Requires the user's email as a query parameter. Returns a list of properties associated with the specified user's email address.
+- `GET /properties/user?email=:email`: Get properties by user email. Requires the user's email as a query parameter. Returns a list of properties associated with the specified user's email address.
 
-- `PUT /api/properties/:id`: Update a specific property by ID. Requires the property ID as a parameter. Use this route to modify the data of an existing property in the database.
+- `PUT /properties/:id`: Update a specific property by ID. Requires the property ID as a parameter. Use this route to modify the data of an existing property in the database.
 
-- `DELETE /api/properties/:id`: Delete a specific property by ID. Requires the property ID as a parameter. Use this route to remove a property from the database.
+- `DELETE /properties/:id`: Delete a specific property by ID. Requires the property ID as a parameter. Use this route to remove a property from the database.
+
