@@ -7,7 +7,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const query = {};
-    const cursor = propertiesCollection.find(query);
+    const options = {
+      sort: { "createdAt": -1 }
+    }
+    const cursor = propertiesCollection.find(query, options);
     const result = await cursor.toArray();
     // send response
     res.status(200).json({
