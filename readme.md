@@ -14,6 +14,22 @@ This repository contains the server-side codebase for the Real Estate AI project
 - [Technologies Used](#technologies-used)
 - [API Documentation](#api-documentation)
 
+## Live Links
+
+> LIVE SITE : **[Real Estate Genius Live Site](https://realestategenius.netlify.app/)**
+
+> API URL : **[Real Estate Genius Server](https://real-estate-sji.onrender.com)**
+
+## Repositories
+
+> **[Frontend Repository](https://github.com/jharnakhatun2/real-estate-ai)**
+
+> **[Backend Repository](https://github.com/codernoyan/real-estate-ai-server)**
+
+## Instruction Video
+
+> **[Video Link](https://vimeo.com/manage/videos/843961242)**
+
 ## Features
 
 The Real Estate AI Server is a powerful backend application designed to cater to the needs of users in the real estate industry. With this server, users can input property data and receive accurate property valuations along with property images. Additionally, the server offers the functionality to create social media posters for properties and download PDF versions of property valuations.
