@@ -14,6 +14,12 @@ This repository contains the server-side codebase for the Real Estate AI project
 - [Technologies Used](#technologies-used)
 - [API Documentation](#api-documentation)
 
+## OpenAI File Path
+
+[routes](routes/) > [openAiRoutes.js](routes/openAiRoutes.js)
+
+[controllers](controllers/) > [openAiControllers.js](controllers/openAiControllers.js)
+
 ## Live Links
 
 > LIVE SITE : **[Real Estate Genius Live Site](https://realestategenius.netlify.app/)**
